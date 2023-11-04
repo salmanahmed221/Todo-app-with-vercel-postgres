@@ -17,6 +17,7 @@ const getData = async () => {
     }
 }
 
+
 async function Todolist() {
     const data: { data: Todo[] } = await getData();
     return (
