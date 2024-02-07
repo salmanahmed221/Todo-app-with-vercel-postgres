@@ -4,18 +4,13 @@ import { useState } from "react";
 import { NewTodo } from "@/lib/drizzle";
 
 function AddTodo() {
-  const [val, setVal] = useState<NewTodo>({
-    task: "",
-  });
-
+  const [task, setTask] = useState("");
   const handleSubmit = async () => {
     try {
-      if (val) {
+      if (task) {
         const res = await fetch("http://localhost:3000/api/todo", {
           method: "POST",
-          body: JSON.stringify({
-            task: val.task,
-          }),
+          body: JSON.stringify({ task: task }),
         });
         console.log(res.ok);
       }
@@ -28,8 +23,10 @@ function AddTodo() {
       <form className="w-full flex gap-x-1">
         <input
           type="text"
+          value={task}
+          placeholder="Add a new task"
           className="rounded-full w-full py-2 px-4 border focus:outline-primary"
-          onChange={(e) => setVal({ task: e.target.value })}
+          onChange={(e) => setTask(e.target.value)}
         />
         <button type="button" onClick={handleSubmit} className="text-4xl ">
           <FaArrowAltCircleRight />

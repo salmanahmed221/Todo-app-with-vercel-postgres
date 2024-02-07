@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { NewTodo, Todo, db, todoTable } from '@/lib/drizzle';
-import { sql } from '@vercel/postgres';
-import { and, eq } from 'drizzle-orm';
+import { NextRequest, NextResponse } from "next/server";
+import { NewTodo, Todo, db, todoTable } from "@/lib/drizzle";
+import { sql } from "@vercel/postgres";
+import { and, eq } from "drizzle-orm";
 
 export async function GET(request: NextRequest) {
   try {
@@ -10,13 +10,12 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ data: res });
   } catch (eror) {
     console.log((eror as { message: string }).message);
-    return NextResponse.json({ message: 'Something went wrong' });
+    return NextResponse.json({ message: "Something went wrong" });
   }
 }
 
 export async function POST(request: NextRequest) {
   const req = await request.json();
-
   try {
     if (req.task) {
       const res = await db
@@ -27,9 +26,9 @@ export async function POST(request: NextRequest) {
         .returning();
       console.log(res);
 
-      return NextResponse.json({ message: 'task is added', data: res });
+      return NextResponse.json({ message: "task is added", data: res });
     } else {
-      throw new Error('task is required');
+      throw new Error("task is required");
     }
   } catch (error) {
     return NextResponse.json({
@@ -48,17 +47,13 @@ export async function DELETE(request: NextRequest) {
   try {
     if (req.id) {
       const res = await db
-      .delete(todoTable)
-      .where(
-        and(
-          eq(todoTable.id, req.id),
-        )
-      )
-      .returning();
-      return NextResponse.json({ message: 'task is deleted', data: res });
+        .delete(todoTable)
+        .where(and(eq(todoTable.id, req.id)))
+        .returning();
+      return NextResponse.json({ message: "task is deleted", data: res });
     } else {
-      throw new Error('id is required');
-    } 
+      throw new Error("id is required");
+    }
   } catch (error) {
     console.log(error);
   }

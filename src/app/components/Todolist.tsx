@@ -42,8 +42,6 @@ async function Todolist() {
           className="bg-gray-100 py-4 px-4 flex shadow rounded-lg items-center gap-x-3 my-3"
           key={elem.id}
         >
-          {/* Circle */}
-          <div className="h-2 w-3 bg-primary rounded-full"></div>
           {/* Task title */}
           <p className="text-lg font-medium">{elem.task}</p>
           <button
